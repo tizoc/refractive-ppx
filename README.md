@@ -2,6 +2,25 @@
 
 PPX Rewriter for generating [Refractive](https://github.com/tizoc/refractive) lenses and selectors.
 
+## How to use
+
+Add a `[@refractive.derive]` annotation to a type declaration (only record types are supported):
+
+```reason
+[@refractive.derive]
+type t = { ... };
+```
+
+The expansion will define two new modules:
+
+- `Lenses` if the type name is `t`, or `<Titlecased-type-name>Lenses` for any other name.
+- `Selectors` if the type name is `t`, or `<Titlecased-type-name>Selectors` for any other name.
+
+The `Lenses` module will include one lense declaration for each record field, with the same name.
+The `Selectors` module will include one selector declaration for each record field, with the same name. The path will be the same as the name of the field, and a lense of the same name will be used.
+
+For recursive type definitions, the `[@refractive.derive]` has to be added to each type declaration for which lenses and selectors should be generated.
+
 ## Example
 
 The following declaration:
