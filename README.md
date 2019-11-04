@@ -18,11 +18,10 @@ module User = {
 };
 ```
 
-will generate:
+gets expanded to:
 
 ```reason
 module User = {
-  [@refractive.derive]
   type t = {
     id:       string,
     email:    string,
