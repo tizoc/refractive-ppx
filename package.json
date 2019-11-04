@@ -1,0 +1,29 @@
+{
+  "name": "refractive-ppx",
+  "version": "0.0.0",
+  "author": "tizoc",
+  "license": "BSD-3-Clause",
+  "files": [
+    "bsconfig.json",
+    "src",
+    "tests"
+  ],
+  "esy": {
+    "build": "refmterr dune build",
+    "release": {
+      "bin": ["refractive_ppx.exe"],
+      "releasedBinaries": ["refractive_ppx.exe"]
+    }
+  },
+  "scripts": {
+    "test": "esy x ppx_refractive_test",
+    "dev:rewriter": "refmt --parse re --print ml tests/ppx_refractive_test.re | ocamlfind ppx_tools/rewriter \"_esy/default/build/default/.ppx/refractive_ppx/ppx.exe --as-ppx\" | refmt --parse ml --print re"
+  },
+  "devDependencies": {
+    "@esy-ocaml/reason": "^3.5.0",
+    "@opam/dune": "^1.11.0",
+    "@opam/ppx_tools_versioned": "^5.2.3",
+    "refmterr": "*",
+    "ocaml": "~4.2.3"
+  }
+}
