@@ -10,10 +10,10 @@ The following declaration:
 module User = {
   [@refractive.derive]
   type t = {
-    id: string,
-    email: string,
+    id:       string,
+    email:    string,
     username: string,
-    score: int,
+    score:    int,
   };
 };
 ```
