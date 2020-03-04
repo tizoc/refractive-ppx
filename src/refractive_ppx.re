@@ -1,8 +1,8 @@
 open Migrate_parsetree;
-open Ast_402;
+open Ast_408;
 open Ast_mapper;
 open Ast_helper;
-open Ast_convenience_402;
+open Ast_convenience_408;
 open Location;
 open Parsetree;
 open Longident;
@@ -16,10 +16,7 @@ let updatedRecord = (~singleField=false, record, field, value) =>
     Pexp_record([(nllid(field), mkref(value))], singleField ? None : Some(mkref(record))),
   );
 
-let findAttr = (s, attrs) =>
-  try(Some(List.find(((x, _)) => x.txt == s, attrs))) {
-  | Not_found => None
-  };
+let findAttr = find_attr
 
 let hasAttr = (s, attrs) => findAttr(s, attrs) != None;
 
@@ -106,7 +103,7 @@ let selectorType = (record_name, name, typ) => {
 let qualifiedModuleName = (typeName, baseName) =>
   switch(typeName) {
   | "t" => baseName
-  | other => String.capitalize(other) ++ baseName
+  | other => String.capitalize_ascii(other) ++ baseName
   };
 
 let refractiveAnnotated = ty => hasAttr("refractive.derive", ty.ptype_attributes);
@@ -166,7 +163,7 @@ let anyRefractiveAnnotation =  List.exists(refractiveAnnotated);
 let mapper = (_, _) => {
   let structure = (mapper, items) =>
     switch (items) {
-    | [{pstr_desc: Pstr_type(typ_decls), pstr_loc} as item, ...rest]
+    | [{pstr_desc: Pstr_type(_recFlag, typ_decls), pstr_loc} as item, ...rest]
         when anyRefractiveAnnotation(typ_decls) =>
       let derived =
         Ast_helper.with_default_loc(pstr_loc, () =>
@@ -180,7 +177,7 @@ let mapper = (_, _) => {
     };
   let signature = (mapper, items) =>
     switch (items) {
-    | [{psig_desc: Psig_type(typ_decls), psig_loc} as item, ...rest]
+    | [{psig_desc: Psig_type(_recFlag, typ_decls), psig_loc} as item, ...rest]
         when anyRefractiveAnnotation(typ_decls) =>
       let derived =
         Ast_helper.with_default_loc(psig_loc, () =>
@@ -203,4 +200,4 @@ let mapper = (_, _) => {
   };
 };
 
-Driver.register(~name="refractive", Versions.ocaml_402, mapper);
+Driver.register(~name="refractive", Versions.ocaml_408, mapper);
