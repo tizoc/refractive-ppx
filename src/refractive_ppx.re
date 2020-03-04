@@ -13,10 +13,13 @@ let mklet = (name, expr) => Vb.mk(pvar(name), expr);
 
 let updatedRecord = (~singleField=false, record, field, value) =>
   Exp.mk(
-    Pexp_record([(nllid(field), mkref(value))], singleField ? None : Some(mkref(record))),
+    Pexp_record(
+      [(nllid(field), mkref(value))],
+      singleField ? None : Some(mkref(record)),
+    ),
   );
 
-let findAttr = find_attr
+let findAttr = find_attr;
 
 let hasAttr = (s, attrs) => findAttr(s, attrs) != None;
 
@@ -101,36 +104,53 @@ let selectorType = (record_name, name, typ) => {
 };
 
 let qualifiedModuleName = (typeName, baseName) =>
-  switch(typeName) {
+  switch (typeName) {
   | "t" => baseName
   | other => String.capitalize_ascii(other) ++ baseName
   };
 
-let refractiveAnnotated = ty => hasAttr("refractive.derive", ty.ptype_attributes);
+let refractiveAnnotated = ty =>
+  hasAttr("refractive.derive", ty.ptype_attributes);
 
 let deriveStrTypeDecl = (typ_decls, pstr_loc, item) => {
   let moduleDecls =
     typ_decls
     |> List.filter(refractiveAnnotated)
     |> List.map(typeDecl =>
-      switch (typeDecl.ptype_kind) {
-      | Ptype_record(labels) =>
-        let typeName = typeDecl.ptype_name.txt;
-        let names = labels |> List.map(({pld_name: {txt: name, _}}) => name);
-        let singleField = List.length(labels) === 1;
-        let lensBindings = List.map(lensDefinition(~singleField), names);
-        let selectorBindings = List.map(selectorDefinition(qualifiedModuleName(typeName, "Lenses")), names);
-        let lensesModule = defineModule(pstr_loc, qualifiedModuleName(typeName, "Lenses"), lensBindings);
-        let selectorsModule = defineModule(pstr_loc, qualifiedModuleName(typeName, "Selectors"), selectorBindings);
-        [lensesModule, selectorsModule];
-      | _ =>
-        raise_errorf(
-          ~loc=pstr_loc,
-          "refractive can be derived only for record types",
-        )
-      })
+         switch (typeDecl.ptype_kind) {
+         | Ptype_record(labels) =>
+           let typeName = typeDecl.ptype_name.txt;
+           let names =
+             labels |> List.map(({pld_name: {txt: name, _}}) => name);
+           let singleField = List.length(labels) === 1;
+           let lensBindings = List.map(lensDefinition(~singleField), names);
+           let selectorBindings =
+             List.map(
+               selectorDefinition(qualifiedModuleName(typeName, "Lenses")),
+               names,
+             );
+           let lensesModule =
+             defineModule(
+               pstr_loc,
+               qualifiedModuleName(typeName, "Lenses"),
+               lensBindings,
+             );
+           let selectorsModule =
+             defineModule(
+               pstr_loc,
+               qualifiedModuleName(typeName, "Selectors"),
+               selectorBindings,
+             );
+           [lensesModule, selectorsModule];
+         | _ =>
+           raise_errorf(
+             ~loc=pstr_loc,
+             "refractive can be derived only for record types",
+           )
+         }
+       )
     |> List.flatten;
-    [item] @ moduleDecls;
+  [item] @ moduleDecls;
 };
 
 let deriveSigTypeDecl = (typ_decls, psig_loc, item) => {
@@ -138,32 +158,48 @@ let deriveSigTypeDecl = (typ_decls, psig_loc, item) => {
     typ_decls
     |> List.filter(refractiveAnnotated)
     |> List.map(typeDecl =>
-      switch (typeDecl.ptype_kind) {
-      | Ptype_record(labels) =>
-        let typeName = typeDecl.ptype_name.txt;
-        let names = labels |> List.map(({pld_name: {txt: name, _}}) => name);
-        let types = labels |> List.map(l => l.pld_type);
-        let lensTypes = List.map2(lensType(typeName), names, types);
-        let selectorTypes = List.map2(selectorType(typeName), names, types);
-        let lensesModuleSig = declareModule(psig_loc, qualifiedModuleName(typeName, "Lenses"), lensTypes);
-        let selectorsModuleSig = declareModule(psig_loc, qualifiedModuleName(typeName, "Selectors"), selectorTypes);
-        [lensesModuleSig, selectorsModuleSig];
-      | _ =>
-        raise_errorf(
-          ~loc=psig_loc,
-          "refractive can be derived only for record types",
-        )
-      })
+         switch (typeDecl.ptype_kind) {
+         | Ptype_record(labels) =>
+           let typeName = typeDecl.ptype_name.txt;
+           let names =
+             labels |> List.map(({pld_name: {txt: name, _}}) => name);
+           let types = labels |> List.map(l => l.pld_type);
+           let lensTypes = List.map2(lensType(typeName), names, types);
+           let selectorTypes =
+             List.map2(selectorType(typeName), names, types);
+           let lensesModuleSig =
+             declareModule(
+               psig_loc,
+               qualifiedModuleName(typeName, "Lenses"),
+               lensTypes,
+             );
+           let selectorsModuleSig =
+             declareModule(
+               psig_loc,
+               qualifiedModuleName(typeName, "Selectors"),
+               selectorTypes,
+             );
+           [lensesModuleSig, selectorsModuleSig];
+         | _ =>
+           raise_errorf(
+             ~loc=psig_loc,
+             "refractive can be derived only for record types",
+           )
+         }
+       )
     |> List.flatten;
-    [item] @ moduleSigDecls;
+  [item] @ moduleSigDecls;
 };
 
-let anyRefractiveAnnotation =  List.exists(refractiveAnnotated);
+let anyRefractiveAnnotation = List.exists(refractiveAnnotated);
 
 let mapper = (_, _) => {
   let structure = (mapper, items) =>
     switch (items) {
-    | [{pstr_desc: Pstr_type(_recFlag, typ_decls), pstr_loc} as item, ...rest]
+    | [
+        {pstr_desc: Pstr_type(_recFlag, typ_decls), pstr_loc} as item,
+        ...rest,
+      ]
         when anyRefractiveAnnotation(typ_decls) =>
       let derived =
         Ast_helper.with_default_loc(pstr_loc, () =>
@@ -177,7 +213,10 @@ let mapper = (_, _) => {
     };
   let signature = (mapper, items) =>
     switch (items) {
-    | [{psig_desc: Psig_type(_recFlag, typ_decls), psig_loc} as item, ...rest]
+    | [
+        {psig_desc: Psig_type(_recFlag, typ_decls), psig_loc} as item,
+        ...rest,
+      ]
         when anyRefractiveAnnotation(typ_decls) =>
       let derived =
         Ast_helper.with_default_loc(psig_loc, () =>
