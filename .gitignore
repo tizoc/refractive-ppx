@@ -2,5 +2,6 @@ tmp/
 _build/
 .DS_Store
 _esy/
+_release/
 .merlin
 *.install
