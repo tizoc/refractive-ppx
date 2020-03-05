@@ -1,0 +1,27 @@
+{
+    "name": "refractive_ppx",
+    "version": "0.0.1",
+    "description": "Refractive Lenses PPX rewriter",
+    "author": "tizoc",
+    "license": "BSD-3-Clause",
+    "esy": {
+      "build": [["refmterr", "dune", "build", "-p", "#{self.name}"]],
+      "buildsInSource": "_build"
+    },
+    "scripts": {
+      "test": "esy x ppx_refractive_test",
+      "release-static": "dune build --root . --only-packages '#{self.name}' --ignore-promoted-rules --no-config --profile release-static"
+    },
+    "dependencies": {
+      "ocaml": ">=4.2.3 <4.9.0",
+      "@esy-ocaml/reason": "*",
+      "@opam/dune": "*",
+      "@opam/ocaml-migrate-parsetree": "^1.6.0",
+      "@opam/ppx_tools_versioned": "^5.2.3",
+      "@opam/ppx_tools": "*"
+    },
+    "devDependencies": {
+      "ocaml": ">=4.2.3 <4.9.0",
+      "refmterr": "*"
+    }
+  }
