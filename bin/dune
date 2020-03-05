@@ -1,0 +1,7 @@
+
+(executable
+ (name Bin)
+ (public_name refractive_ppx)
+ (libraries refractive_ppx.lib ocaml-migrate-parsetree)
+ (ocamlopt_flags (-linkall))
+)
