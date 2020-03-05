@@ -1,5 +1,5 @@
 {
-  "checksum": "91fe8048c52d9b4486386cb2c5f57791",
+  "checksum": "ade0877c6fec8962d23022f3e2a40bd3",
   "root": "refractive-ppx@link-dev:./package.json",
   "node": {
     "refractive-ppx@link-dev:./package.json": {
@@ -12,10 +12,11 @@
         "manifest": "package.json"
       },
       "overrides": [],
-      "dependencies": [ "reason@3.3.4@d41d8cd9" ],
+      "dependencies": [],
       "devDependencies": [
         "refmterr@3.3.0@d41d8cd9", "ocaml@4.8.1000@d41d8cd9",
         "@opam/ppx_tools_versioned@opam:5.2.3@4994ec80",
+        "@opam/ppx_tools@opam:6.0+4.08.0@5f5453f4",
         "@opam/ocaml-migrate-parsetree@opam:1.6.0@da2643e7",
         "@opam/dune@opam:2.3.1@b10b59bf"
       ]
@@ -38,20 +39,6 @@
         "@opam/atdgen@opam:2.0.0@46af0360",
         "@esy-ocaml/reason@3.5.2@d41d8cd9"
       ],
-      "devDependencies": []
-    },
-    "reason@3.3.4@d41d8cd9": {
-      "id": "reason@3.3.4@d41d8cd9",
-      "name": "reason",
-      "version": "3.3.4",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/reason/-/reason-3.3.4.tgz#sha1:a294ef8aa14fa85c6fd8a7db5dcab053f2382f68"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
       "devDependencies": []
     },
     "ocaml@4.8.1000@d41d8cd9": {
@@ -226,6 +213,31 @@
         "ocaml@4.8.1000@d41d8cd9",
         "@opam/ocaml-migrate-parsetree@opam:1.6.0@da2643e7",
         "@opam/dune@opam:2.3.1@b10b59bf"
+      ]
+    },
+    "@opam/ppx_tools@opam:6.0+4.08.0@5f5453f4": {
+      "id": "@opam/ppx_tools@opam:6.0+4.08.0@5f5453f4",
+      "name": "@opam/ppx_tools",
+      "version": "opam:6.0+4.08.0",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://opam.ocaml.org/cache/md5/80/801e82103fee7ce1e4a59ab670601952#md5:801e82103fee7ce1e4a59ab670601952",
+          "archive:https://github.com/ocaml-ppx/ppx_tools/archive/6.0+4.08.0.tar.gz#md5:801e82103fee7ce1e4a59ab670601952"
+        ],
+        "opam": {
+          "name": "ppx_tools",
+          "version": "6.0+4.08.0",
+          "path": "esy.lock/opam/ppx_tools.6.0+4.08.0"
+        }
+      },
+      "overrides": [],
+      "dependencies": [
+        "ocaml@4.8.1000@d41d8cd9", "@opam/dune@opam:2.3.1@b10b59bf",
+        "@esy-ocaml/substs@0.0.1@d41d8cd9"
+      ],
+      "devDependencies": [
+        "ocaml@4.8.1000@d41d8cd9", "@opam/dune@opam:2.3.1@b10b59bf"
       ]
     },
     "@opam/ppx_derivers@opam:1.2.1@ecf0aa45": {
