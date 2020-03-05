@@ -1,5 +1,4 @@
 (executable
  (name ppx_refractive_test)
- (public_name ppx_refractive_test)
  (preprocess (pps refractive_ppx))
 )
