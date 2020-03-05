@@ -1,8 +1,8 @@
 open Migrate_parsetree;
-open Ast_408;
+open Ast_409;
 open Ast_mapper;
 open Ast_helper;
-open Ast_convenience_408;
+open Ast_convenience_409;
 open Location;
 open Parsetree;
 open Longident;
@@ -239,4 +239,4 @@ let mapper = (_, _) => {
   };
 };
 
-Driver.register(~name="refractive", Versions.ocaml_408, mapper);
+Driver.register(~name="refractive", Versions.ocaml_409, mapper);
