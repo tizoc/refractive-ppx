@@ -118,7 +118,7 @@ jobs:
           strip _build/default/bin/Bin.exe
 
       - name: (only on release) Upload artifacts ${{ matrix.os }}
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-artifact@master
         with:
           name: ${{ matrix.os }}
