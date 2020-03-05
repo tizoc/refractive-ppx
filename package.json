@@ -1,10 +1,13 @@
 {
   "name": "@tizoc/refractive_ppx",
-  "version": "0.0.1",
+  "version": "0.0.1-beta.0",
   "description": "Refractive Lenses PPX rewriter",
   "author": "tizoc",
   "license": "BSD-3-Clause",
   "scripts": {
     "postinstall": "node ./copyPlatformBinaryInPlace.js"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
