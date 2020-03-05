@@ -1,5 +1,5 @@
 {
-  "name": "refractive_ppx",
+  "name": "@tizoc/refractive_ppx",
   "version": "0.0.1",
   "description": "Refractive Lenses PPX rewriter",
   "author": "tizoc",
