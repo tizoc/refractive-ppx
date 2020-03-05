@@ -16,13 +16,13 @@
     "dev:rewriter":
       "refmt --parse re --print ml tests/ppx_refractive_test.re | ocamlfind ppx_tools/rewriter \"_esy/default/build/default/.ppx/refractive_ppx/ppx.exe --as-ppx\" | refmt --parse ml --print re"
   },
-  "peerDependencies": { "bs-platform": "*" },
+  "peerDependencies": { "bs-platform": "*", "reason": "*" },
   "devDependencies": {
     "ocaml": "<4.9.0",
     "@opam/dune": "*",
     "@opam/ocaml-migrate-parsetree": "^1.6.0",
     "@opam/ppx_tools_versioned": "^5.2.3",
+    "@opam/ppx_tools": "*",
     "refmterr": "*"
-  },
-  "dependencies": { "reason": "^3.3.4" }
+  }
 }
