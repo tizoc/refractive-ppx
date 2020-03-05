@@ -113,8 +113,8 @@ jobs:
           esy build
 
       - name: strip binary
-          run: |
-            strip _build/default/bin/Bin.exe
+        run: |
+          strip _build/default/bin/Bin.exe
 
       - name: (only on release) Upload artifacts ${{ matrix.os }}
         if: github.event_name != 'pull_request'
