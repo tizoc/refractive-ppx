@@ -50,10 +50,11 @@ jobs:
           restore-keys: |
             v1-esy-${{ matrix.os }}-
 
-      - name: install
-        run: |
-          esy install
-          esy build
+      - name: esy install
+        run: esy install
+
+      - name: esy build
+        run: esy build
 
       - name: strip binary
         run: strip _build/default/bin/Bin.exe
@@ -107,10 +108,11 @@ jobs:
           key: v1-esy-${{ matrix.os }}-${{ hashFiles('**/index.json') }}
           restore-keys: |
             v1-esy-${{ matrix.os }}-
-      - name: esy install and build
-        run: |
-          esy install
-          esy build
+      - name: esy install
+        run: esy install
+
+      - name: esy build
+        run: esy build
 
       - name: strip binary
         run: |
