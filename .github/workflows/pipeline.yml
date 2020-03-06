@@ -99,6 +99,7 @@ jobs:
           fi
           echo "THE_ESY__CACHE_INSTALL_PATH: $THE_ESY__CACHE_INSTALL_PATH"
           echo "##[set-output name=path;]$THE_ESY__CACHE_INSTALL_PATH"
+
       - name: Restore esy cache
         uses: actions/cache@v1
         with:
@@ -111,6 +112,9 @@ jobs:
 
       - name: esy build
         run: esy build
+
+      - name: List .esy dir
+        run: ls "$HOME/.esy"
 
       - name: strip binary
         run: |
