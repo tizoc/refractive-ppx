@@ -13,7 +13,7 @@ if (platform === "win32") {
   platform = "win";
 }
 
-copyBinary("bin/refractive_ppx-" + platform + "-" + arch + ".exe", "ppx");
+copyBinary("bin/refractive_ppx-" + platform + "-" + arch + ".exe", "ppx.exe");
 
 function copyBinary(filename, destFilename) {
   var supported = fs.existsSync(filename);
@@ -48,12 +48,6 @@ function copyBinary(filename, destFilename) {
   if (!fs.existsSync(destFilename)) {
     copyFileSync(filename, destFilename);
     fs.chmodSync(destFilename, 0755);
-  }
-
-  var destFilenameExe = destFilename + ".exe";
-  if (!fs.existsSync(destFilenameExe)) {
-    copyFileSync(filename, destFilenameExe);
-    fs.chmodSync(destFilenameExe, 0755);
   }
 }
 
