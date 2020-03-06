@@ -4,6 +4,12 @@
     "description": "Refractive Lenses PPX rewriter",
     "author": "tizoc",
     "license": "BSD-3-Clause",
+    "keywords": [
+      "Bucklescript",
+      "ppx",
+      "reason",
+      "lenses"
+    ],
     "esy": {
       "build": [["refmterr", "dune", "build", "-p", "#{self.name}"]],
       "buildsInSource": "_build"
