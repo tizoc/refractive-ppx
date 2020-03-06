@@ -26,6 +26,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: esy install
+        run: esy install
+
       - name: Print esy cache
         id: print_esy_cache
         run: node .github/workflows/print_esy_cache.js
@@ -37,9 +40,6 @@ jobs:
           key: v1-esy-${{ matrix.os }}-${{ hashFiles('**/index.json') }}
           restore-keys: |
             v1-esy-${{ matrix.os }}-
-
-      - name: esy install
-        run: esy install
 
       - name: esy build
         run: esy build
@@ -70,6 +70,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install esy
         run: npm install -g esy@0.6.2
+
+      - name: esy install
+        run: esy install
 
       - name: Print esy cache
         id: print_esy_cache
