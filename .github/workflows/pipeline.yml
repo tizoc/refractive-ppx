@@ -60,7 +60,7 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x]
-        os: [windows-2016, macOS-latest]
+        os: [windows-2019, macOS-latest]
 
     steps:
       - uses: actions/checkout@v1
@@ -91,9 +91,6 @@ jobs:
 
       - name: esy build
         run: esy build
-
-      - name: List .esy dir
-        run: ls "$HOME/.esy"
 
       - name: strip binary
         run: |
@@ -138,7 +135,7 @@ jobs:
         if: success()
         uses: actions/download-artifact@master
         with:
-          name: windows-2016
+          name: windows-2019
           path: binaries/windows
 
       - name: Move artifacts
