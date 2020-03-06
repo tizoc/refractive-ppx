@@ -53,6 +53,8 @@ jobs:
         run: esy install
       - name: esy build
         run: esy build
+      - name: build static binary
+        run: esy release-static
 
       - name: strip binary
         run: strip _build/default/bin/Bin.exe
