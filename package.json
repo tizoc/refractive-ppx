@@ -4,6 +4,11 @@
   "description": "Refractive Lenses PPX rewriter",
   "author": "tizoc",
   "license": "BSD-3-Clause",
+  "homepage": "https://github.com/tizoc/refractive_ppx",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/tizoc/refractive_ppx.git"
+  },
   "keywords": [
     "Bucklescript",
     "ppx",
