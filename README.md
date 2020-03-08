@@ -1,6 +1,25 @@
 # Refractive PPX
 
+[![npm version](https://badge.fury.io/js/%40tizoc%2Frefractive_ppx.svg)](https://badge.fury.io/js/%40tizoc%2Frefractive_ppx)
+![pipeline](https://github.com/tizoc/refractive-ppx/workflows/refractive_ppx%20pipeline/badge.svg)
+
 PPX Rewriter for generating [Refractive](https://github.com/tizoc/refractive) lenses and selectors.
+
+## To enable
+
+Install `@tizoc/refractive_ppx`:
+
+```
+npm i --save-dev @tizoc/refractive_ppx
+```
+
+Add this to your `bsconfig.json` file:
+
+```json
+  "ppx-flags": [
+    "@tizoc/refractive_ppx/ppx.exe"
+  ],
+```
 
 ## How to use
 
