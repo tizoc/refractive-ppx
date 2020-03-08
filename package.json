@@ -1,6 +1,6 @@
 {
   "name": "@tizoc/refractive_ppx",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Refractive Lenses PPX rewriter",
   "author": "tizoc",
   "license": "BSD-3-Clause",
